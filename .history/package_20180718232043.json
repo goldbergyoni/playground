@@ -30,11 +30,10 @@
     "node-mocks-http": "^1.7.0"
   },
   "scripts": {
-    "test": "mocha **/**--test.js",
-    "inspect:quick-testing" : "",
-    "inspect:lint" : "",
-    "inspect:vunel" : "",
-    "inspect:all" : ""
+    "test": "jest --notify --config=config.json",
+    "inspect:quick-testing",
+    "inspect:lint",
+    "inspect:vunele",
 
   },
   "author": "",

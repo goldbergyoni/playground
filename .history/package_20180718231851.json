@@ -30,20 +30,17 @@
     "node-mocks-http": "^1.7.0"
   },
   "scripts": {
-    "test": "mocha **/**--test.js",
-    "inspect:quick-testing" : "",
-    "inspect:lint" : "",
-    "inspect:vunel" : "",
-    "inspect:all" : ""
-
+    "test": "jest --notify --config=config.json"
   },
   "author": "",
   "license": "ISC",
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm test",
-      "pre-push": "npm test",
-      "...": "..."
+  
+    "husky": {
+      "hooks": {
+        "pre-commit": "npm test",
+        "pre-push": "npm test",
+        "...": "..."
+      }
     }
   }
 }

@@ -30,7 +30,7 @@
     "node-mocks-http": "^1.7.0"
   },
   "scripts": {
-    "test": "mocha **/**--test.js",
+    "test": "mocha **/**-test.js",
     "inspect:quick-testing" : "",
     "inspect:lint" : "",
     "inspect:vunel" : "",
