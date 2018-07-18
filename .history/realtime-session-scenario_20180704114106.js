@@ -1,0 +1,9 @@
+const EventEmitter = require('events');
+const util = require('util');
+
+//I prefer classes but I conform to your styleguide
+const scenario = ()=>{
+    util.inherits()
+
+}
+
