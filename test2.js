@@ -1,22 +1,15 @@
-console.time('time');
-const a = new Promise((resolve, reject) => {
-    setTimeout(() => {
-        resolve("success");
-    }, 3000);
-});
+const lag = require('event-loop-lag')(1);
+const crypto = require('crypto');
 
-const b = new Promise((resolve, reject) => {
-    setTimeout(() => {
-        reject("failure");
-    }, 100);
-});
+console.log('event loop lag is %d', lag());
 
- Promise.all([a , b]).then((result) =>{
-     console.log('Finished');
-    console.log(result);
-    console.timeEnd('time');
-}).catch((error) => {
-    console.log('Finished with error');
-    console.log(error);
-    console.timeEnd('time');
-});
+for (let index = 0; index < 10000; index++) {
+    const cipher = crypto.createCipher('aes192', 'a password not that long a password not that long');
+    cipher.write('some clear text data a password not that long a password not that long');
+    cipher.end();
+    cipher.on('readable', () => {
+        if (index % 100 === 0) {
+            console.log('event loop lag after some nasty blocking %d', lag());
+        }
+    });
+}
