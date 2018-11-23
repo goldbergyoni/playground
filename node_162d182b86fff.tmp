@@ -1,0 +1,22 @@
+const blocked = require('blocked-at');
+const {createCipheriv} = require("crypto");
+const {generate} = require("randomstring");
+
+const greedyFunction = () =>{
+    console.log(`Starting a greedy function`);
+    const end = Date.now() + 1000;
+            while (Date.now() < end) {
+            const doSomethingHeavyInJavaScript = 1 + 2 + 3;
+        } 
+    console.log(`Ending a greedy function`);
+}
+
+const handleBlockedLoop = (time, stack) => {
+    console.log(`Blocked at ${stack} for ${time} ms`);
+    //TODO: export to Promotheus here
+}
+
+const {stop} = blocked(handleBlockedLoop);
+greedyFunction();
+console.log(`Program finished`);
+process.stdin.resume();
