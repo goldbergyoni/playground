@@ -1,0 +1,14 @@
+{
+    "jest": {
+      "coverageThreshold": {
+        "global": {
+          "lines": 80
+        },
+        "./src/components/finance": {
+          "lines":95
+        }
+      }
+    }
+  }
+
+  

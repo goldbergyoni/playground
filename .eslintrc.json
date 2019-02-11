@@ -11,7 +11,12 @@
     "linebreak-style": 0,
     "mocha/no-exclusive-tests": "error",
     "class-methods-use-this": 0,
-    "one-var":1
+    "one-var":1,
+    "mocha/no-skipped-tests": "error",
+    "mocha/no-setup-in-describe": "error",
+    "mocha/no-global-tests": "error",
+    "mocha/no-identical-title": "error"
+
   },
   "extends": ["airbnb-base", "plugin:node/recommended", "plugin:security/recommended", "prettier", "plugin:jest/recommended"],
   "parserOptions": {
