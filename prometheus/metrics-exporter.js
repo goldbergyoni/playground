@@ -1,4 +1,11 @@
-const {register, Counter, Histogram, Summary, collectDefaultMetrics} = require('prom-client');
+const {
+  register,
+  Counter,
+  Histogram,
+  Summary,
+  collectDefaultMetrics
+} = require('prom-client');
+const responseTime = require('response-time');
 
 // This variable is used to hold the metrics exporter as singleton so all the modules and layers
 // will use the same exporter (otherwise, multiple instances will collect metrics which is a waste)
@@ -23,10 +30,28 @@ class MetricsExporter {
   collectDefaultMetricsAndExport(expressApp, metricsRoute = '/metrics', probeFrequency = 20000) {
     console.log(`About to start collecting default metrics and exposing all under the ${metricsRoute} route`);
     expressApp.get(metricsRoute, (req, res) => {
-        res.set('Content-Type', register.contentType);
-        res.end(register.metrics());
-      });
-    collectDefaultMetrics({timeout: probeFrequency});
+      res.set('Content-Type', register.contentType);
+      res.end(register.metrics());
+    });
+    collectDefaultMetrics({
+      timeout: probeFrequency
+    });
+    this.addCustomMetrics(expressApp);
+  }
+
+  // Here we add custom and generic Minta metrics that are needed in all microservices
+  addCustomMetrics(expressApp) {
+    this.addLatencyMetric(expressApp);
+    // add here other metrics
+  }
+
+  addLatencyMetric(expressApp) {
+    const latencyMetric = this.defineMetric('http_request_duration', 'Measure the request length', ['path'], metricTypes.summary);
+    expressApp.use(
+      responseTime((req, res, time) => {
+        latencyMetric.labels(req.url).observe(time);
+      }),
+    );
   }
 
   defineMetric(name, description, labels = [], metricType) {
